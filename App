@@ -1,0 +1,73 @@
+package com.example.demo;
+
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.*;
+import java.util.Random;
+
+
+public class Main {
+
+
+	public static char[] stringToArray(){
+		String usersString;
+		Scanner in = new Scanner(System.in);
+		System.out.println("Give me a string of chars: ");
+		usersString = in.nextLine();
+
+		char[] usersChars = new char[usersString.length()];
+		for (int i=0; i<= (usersString.length()-1); i++){
+			usersChars[i] = usersString.charAt(i);
+
+		}
+		System.out.println(Arrays.toString(usersChars));
+		return usersChars;
+	}
+
+	public static int[] askUser(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Give me password's length: ");
+		int stringLength = in.nextInt();
+		System.out.println("Give me amount of passwords: ");
+		int stringAmount = in.nextInt();
+		System.out.printf("You need %d passwords, %d characters long. Let's do it!", stringAmount, stringLength);
+		int[] asks = {stringLength, stringAmount};
+		System.out.println("");
+
+		return asks;
+	}
+	public static long fact(int n) {
+		if (n <= 1)
+			return 1;
+		else
+			return n * fact(n - 1);
+	}
+
+
+	public static void main(String[] args) {
+		char[] usersChars = stringToArray();
+		int asks[] = askUser();
+		int n = usersChars.length;
+		int k = asks[0];
+		long combinations = fact(n)/(fact(k)*fact(k-n));
+		System.out.print("You can make " + combinations + " passwords with these characters.");
+		if (combinations < asks[1])
+		{ System.out.println("We cannot generate as many passwords as you want.") ;}
+		else {System.out.println("Seems fine. We can do it!");}
+
+		Random generator = new Random();
+
+		for(int j=0; j <= asks[1]; j++){
+			for (int i=0; i<=asks[0]; i++){
+				// wygeneruj losowo liczbę z zakresu 0 - usersChars.length-1
+				int randomNum = generator.nextInt(usersChars.length-1);
+				System.out.println(randomNum);
+				usersChars[i] = usersChars[randomNum];
+
+			}
+			System.out.println(Arrays.toString(usersChars));
+		}
+
+
+	}
+}
